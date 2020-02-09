@@ -1,6 +1,6 @@
 baseurl = "/"
-languageCode = "en-us"
-title = "A Hugo website"
+languageCode = "ko-kr"
+title = "모두의 환율"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
