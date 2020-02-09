@@ -1,0 +1,17 @@
+---
+title: new posting test
+author: krw jang
+date: '2020-02-10'
+slug: new-posting-test
+categories:
+  - R
+tags: []
+---
+
+
+```{r}
+library(tidyverse)
+
+mpg
+```
+
