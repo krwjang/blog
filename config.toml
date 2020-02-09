@@ -1,5 +1,5 @@
 baseurl = "/"
-languageCode = "ko-kr"
+languageCode = "en"
 title = "모두의 환율"
 theme = "hugo-lithium"
 googleAnalytics = ""
