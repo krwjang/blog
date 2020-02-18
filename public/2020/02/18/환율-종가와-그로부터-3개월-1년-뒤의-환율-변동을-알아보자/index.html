@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.63.1" />
+
+
+<title>환율 종가로부터 3개월, 1년 뒤의 환율 변동을 알아보자 - 모두의 환율</title>
+<meta property="og:title" content="환율 종가로부터 3개월, 1년 뒤의 환율 변동을 알아보자 - 모두의 환율">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/modoo.jpg"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">환율 종가로부터 3개월, 1년 뒤의 환율 변동을 알아보자</h1>
+
+    
+    <span class="article-date">2020-02-18</span>
+    
+
+    <div class="article-content">
+      
+
+
+<div id="특정-환율-수준에서-마감했다면-과연-1달-뒤-또는-1년-뒤에-어떻게-변해서-돌아올까" class="section level2">
+<h2>특정 환율 수준에서 마감했다면 과연 1달 뒤 또는 1년 뒤에 어떻게 변해서 돌아올까?</h2>
+<div id="올라갈까-내려갈까-그-분포를-알아보자." class="section level3">
+<h3>올라갈까? 내려갈까? 그 분포를 알아보자.</h3>
+<pre class="r"><code>library(tidyverse)
+library(tidyquant)
+
+# 데이터 불러오기
+fx_rates &lt;- tq_get(&quot;DEXKOUS&quot;, get = &quot;economic.data&quot;, from = &quot;2010-01-01&quot;)
+fx_rates %&gt;% str()</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    2636 obs. of  2 variables:
+##  $ date : Date, format: &quot;2010-01-01&quot; &quot;2010-01-04&quot; ...
+##  $ price: num  NA 1149 1138 1130 1135 ...</code></pre>
+<pre class="r"><code># 칼럼명 바꾸기
+usdkrw &lt;- fx_rates %&gt;%  `colnames&lt;-`(c(&quot;date&quot;, &quot;usdkrw&quot;))</code></pre>
+</div>
+<div id="개월60일-이후의-환율-변동-분포" class="section level3">
+<h3>3개월(60일) 이후의 환율 변동 분포</h3>
+<pre class="r"><code>### 60일 이후 환율
+usdkrw %&gt;% 
+  mutate(days_after = lead(usdkrw, 60)-usdkrw) %&gt;%  # 60일은 석달 
+  na.omit %&gt;% 
+  ggplot(aes(usdkrw, days_after)) +
+  geom_point(alpha = .3) +
+  geom_hline(yintercept = 0, 
+             size = 1, 
+             alpha = 0.5, 
+             color = &quot;red&quot;, 
+             size = 2) +
+  geom_boxplot(aes(group = cut_width(usdkrw, 20)), # 20원 단위로 박스플롯
+               outlier.shape = NA,
+               alpha = 0.5, 
+               color = &#39;blue&#39;,
+               size = 0.75) +
+  labs(title = &quot;종가별 환율 변동 분포&quot;, x = &quot;환율 종가(원)&quot;, y = &quot;60일 이후 환율 변동(원)&quot;) -&gt; p60</code></pre>
+<pre><code>## Warning: Duplicated aesthetics after name standardisation: size</code></pre>
+</div>
+<div id="년250일-이후의-환율-변동-분포" class="section level3">
+<h3>1년(250일) 이후의 환율 변동 분포</h3>
+<pre class="r"><code>### 250일 이후 환율
+usdkrw %&gt;% 
+  mutate(days_after = lead(usdkrw, 250)-usdkrw) %&gt;% # 250일은 1년
+  na.omit %&gt;% 
+  ggplot(aes(usdkrw, days_after)) +
+  geom_point(alpha = .3) +
+  geom_hline(yintercept = 0, 
+             size = 1, 
+             alpha = 0.5, 
+             color = &quot;red&quot;) +
+  geom_boxplot(aes(group = cut_width(usdkrw, 20)), # 20원 단위로 박스플롯
+               outlier.shape = NA,
+               alpha = 0.5, 
+               color = &#39;blue&#39;,
+               size = 0.75) +
+  labs(title = &quot;종가별 환율 변동 분포&quot;, x = &quot;환율 종가(원)&quot;, y = &quot;250일 이후 환율 변동(원)&quot;) -&gt; p250</code></pre>
+<p>장기적으로 환율이 평균에 수렴하는 이유는
+우리나라 경제 구조는 수출 주도의 소국 개방경제기 때문에
+환율의 자율 조정 기능으로 인해 경기-환율이 상호작용하며…</p>
+</div>
+<div id="그만-알아보자" class="section level3">
+<h3>그만 알아보자!</h3>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
