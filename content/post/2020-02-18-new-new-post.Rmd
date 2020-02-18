@@ -1,0 +1,17 @@
+---
+title: new new post
+author: krwjang
+date: '2020-02-18'
+slug: new-new-post
+categories:
+  - R
+tags: []
+---
+```{r}
+library(tidyverse)
+
+mpg %>% ggplot(aes(model, hwy)) +
+  geom_boxplot()
+
+```
+
