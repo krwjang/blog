@@ -1,43 +1,52 @@
 ---
-title: 그림과 한글도 잘 올라가는가
+title: 한글과 그림 테스트
 author: krwjang
-date: '2020-02-18'
-slug: 그림과-한글도-잘-올라가는가
+date: '2020-02-22'
+slug: 한글과-그림-테스트
 categories:
   - R
 tags: []
+editor_options: 
+  chunk_output_type: console
 ---
+
+한글이 들어가면 잘 안되는거 같아서
+
 
 ```{r}
 library(tidyverse)
-library(tidyquant)
-
+library(tidyquant) 
+ 
 # 데이터 불러오기
 fx_rates <- tq_get("DEXKOUS", get = "economic.data", from = "2010-01-01")
 fx_rates %>% str()
 
 ### 여기서 부터 새로운 연구
-usdkrw <- fx_rates %>%  `colnames<-`(c("date", "usdkrw"))
+usdkrw <- fx_rates %>%
+  select(2:3) %>% 
+  `colnames<-`(c("date", "usdkrw"))
 
 
 
 ### 60일 이후 환율
 usdkrw %>% 
-  mutate(days_after = lead(usdkrw, 60)-usdkrw) %>%  # 60일은 석달 
+  na.omit() %>% 
+  mutate(days_after = lead(usdkrw, 60)-usdkrw) %>%
   na.omit %>% 
   ggplot(aes(usdkrw, days_after)) +
   geom_point(alpha = .3) +
   geom_hline(yintercept = 0, 
              size = 1, 
              alpha = 0.5, 
-             color = "red", 
-             size = 2) +
+             color = "red"
+             ) +
   geom_boxplot(aes(group = cut_width(usdkrw, 20)), # 20원 단위로 박스플롯
                outlier.shape = NA,
                alpha = 0.5, 
                color = 'blue',
                size = 0.75) +
-  labs(title = "종가별 환율 변동 분포", x = "환율 종가(원)", y = "60일 이후 환율 변동(원)")
+  labs(title = "종가별 환율 변동 분포", x = "환율 종가(원)", y = "60일 이후 환율 변동(원)") +
+  coord_flip()
 ```
 
 
@@ -52,15 +61,15 @@ usdkrw %>%
   geom_hline(yintercept = 0, 
              size = 1, 
              alpha = 0.5, 
-             color = "red", 
-             size = 2) +
+             color = "red"
+             ) +
   geom_boxplot(aes(group = cut_width(usdkrw, 20)), # 20원 단위로 박스플롯
                outlier.shape = NA,
                alpha = 0.5, 
                color = 'blue',
                size = 0.75) +
-  labs(title = "종가별 환율 변동 분포", x = "환율 종가(원)", y = "250일 이후 환율 변동(원)")
-
+  labs(title = "종가별 환율 변동 분포", x = "환율 종가(원)", y = "250일 이후 환율 변동(원)") +
+    coord_flip()
 
 ```
 

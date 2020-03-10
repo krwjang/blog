@@ -6,46 +6,9 @@
     <description>Recent content in Tags on 모두의 환율</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>kr</language>
-    <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>krw</title>
-      <link>/tags/krw/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/krw/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>달러원</title>
-      <link>/tags/%EB%8B%AC%EB%9F%AC%EC%9B%90/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%EB%8B%AC%EB%9F%AC%EC%9B%90/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>원달러</title>
-      <link>/tags/%EC%9B%90%EB%8B%AC%EB%9F%AC/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%EC%9B%90%EB%8B%AC%EB%9F%AC/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>환율</title>
-      <link>/tags/%ED%99%98%EC%9C%A8/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%ED%99%98%EC%9C%A8/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

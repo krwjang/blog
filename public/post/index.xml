@@ -6,10 +6,20 @@
     <description>Recent content in Posts on 모두의 환율</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>kr</language>
-    <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>한글과 그림 테스트</title>
+      <link>/2020/02/22/%ED%95%9C%EA%B8%80%EA%B3%BC-%EA%B7%B8%EB%A6%BC-%ED%85%8C%EC%8A%A4%ED%8A%B8/</link>
+      <pubDate>Sat, 22 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/02/22/%ED%95%9C%EA%B8%80%EA%B3%BC-%EA%B7%B8%EB%A6%BC-%ED%85%8C%EC%8A%A4%ED%8A%B8/</guid>
+      <description>한글이 들어가면 잘 안되는거 같아서
+library(tidyverse)## -- Attaching packages --------------------------------------------------------------------- tidyverse 1.3.0 --## √ ggplot2 3.3.0 √ purrr 0.3.3## √ tibble 2.1.3 √ dplyr 0.8.5## √ tidyr 1.0.2 √ stringr 1.4.0## √ readr 1.3.1 √ forcats 0.5.0## -- Conflicts ------------------------------------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()library(tidyquant) ## Loading required package: lubridate## ## Attaching package: &amp;#39;lubridate&amp;#39;## The following object is masked from &amp;#39;package:base&amp;#39;:## ## date## Loading required package: PerformanceAnalytics## Loading required package: xts## Loading required package: zoo## ## Attaching package: &amp;#39;zoo&amp;#39;## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## as.</description>
+    </item>
     
     <item>
       <title>new new post</title>
@@ -18,15 +28,6 @@
       
       <guid>/2020/02/18/new-new-post/</guid>
       <description>library(tidyverse)## -- Attaching packages ------------------------------------------------------------------------------- tidyverse 1.3.0 --## √ ggplot2 3.2.1 √ purrr 0.3.3## √ tibble 2.1.3 √ dplyr 0.8.4## √ tidyr 1.0.2 √ stringr 1.4.0## √ readr 1.3.1 √ forcats 0.4.0## -- Conflicts ---------------------------------------------------------------------------------- tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()mpg %&amp;gt;% ggplot(aes(model, hwy)) +geom_boxplot(color = &amp;quot;red&amp;quot;, alpha = 0.3)</description>
-    </item>
-    
-    <item>
-      <title>환율 종가로부터 3개월, 1년 뒤의 환율 변동을 알아보자</title>
-      <link>/2020/02/18/%ED%99%98%EC%9C%A8-%EC%A2%85%EA%B0%80%EC%99%80-%EA%B7%B8%EB%A1%9C%EB%B6%80%ED%84%B0-3%EA%B0%9C%EC%9B%94-1%EB%85%84-%EB%92%A4%EC%9D%98-%ED%99%98%EC%9C%A8-%EB%B3%80%EB%8F%99%EC%9D%84-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90/</link>
-      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/02/18/%ED%99%98%EC%9C%A8-%EC%A2%85%EA%B0%80%EC%99%80-%EA%B7%B8%EB%A1%9C%EB%B6%80%ED%84%B0-3%EA%B0%9C%EC%9B%94-1%EB%85%84-%EB%92%A4%EC%9D%98-%ED%99%98%EC%9C%A8-%EB%B3%80%EB%8F%99%EC%9D%84-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90/</guid>
-      <description>특정 환율 수준에서 마감했다면 과연 1달 뒤 또는 1년 뒤에 어떻게 변해서 돌아올까?올라갈까? 내려갈까? 그 분포를 알아보자.library(tidyverse)library(tidyquant)# 데이터 불러오기fx_rates &amp;lt;- tq_get(&amp;quot;DEXKOUS&amp;quot;, get = &amp;quot;economic.data&amp;quot;, from = &amp;quot;2010-01-01&amp;quot;)fx_rates %&amp;gt;% str()## Classes &amp;#39;tbl_df&amp;#39;, &amp;#39;tbl&amp;#39; and &amp;#39;data.frame&amp;#39;: 2636 obs. of 2 variables:## $ date : Date, format: &amp;quot;2010-01-01&amp;quot; &amp;quot;2010-01-04&amp;quot; ...## $ price: num NA 1149 1138 1130 1135 ...# 칼럼명 바꾸기usdkrw &amp;lt;- fx_rates %&amp;gt;% `colnames&amp;lt;-`(c(&amp;quot;date&amp;quot;, &amp;quot;usdkrw&amp;quot;))3개월(60일) 이후의 환율 변동 분포### 60일 이후 환율usdkrw %&amp;gt;% mutate(days_after = lead(usdkrw, 60)-usdkrw) %&amp;gt;% # 60일은 석달 na.</description>
     </item>
     
     <item>
