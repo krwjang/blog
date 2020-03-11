@@ -1,0 +1,44 @@
+---
+title: USDKRW 환율 불러오기
+author: krwjang
+date: '2020-03-11'
+slug: usdkrw-달러선물-시장에서-투자자-동향
+categories:
+  - R
+tags: []
+---
+### 파일 불러오기
+
+```{r}
+library(tidyverse)
+library(tidyquant)
+
+
+# 데이터 불러오기
+fx_rates <- tq_get("DEXKOUS", get = "economic.data", from = "2010-01-01")
+fx_rates %>% str()
+
+### 여기서 부터 새로운 연구
+usdkrw <- fx_rates %>%
+  select(2:3) %>% 
+  `colnames<-`(c("date", "usdkrw")) %>% 
+  na.omit()
+
+```
+
+### 인터렉티브 차트 만들기
+
+```{r}
+library(plotly)
+
+p <- usdkrw %>% ggplot(aes(date, usdkrw)) +
+  geom_line(color = "red") +
+  labs(title = "환율",
+       subtitle = "2010년 이후 USD/KRW 환율 추이",
+       y = "USD/KRW(원)",
+       x = "일자",
+       caption = "출처: 세인트루이스연준 fred")
+
+ggplotly(p)
+```
+
