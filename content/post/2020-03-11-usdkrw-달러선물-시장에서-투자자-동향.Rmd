@@ -9,7 +9,7 @@ tags: []
 ---
 ### 파일 불러오기
 
-```{r}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(tidyverse)
 library(tidyquant)
 
